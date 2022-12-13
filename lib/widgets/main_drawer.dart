@@ -5,7 +5,7 @@ import '../screens/filters_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
-  Widget buildListTile(String title, IconData icon, Function onTapAction) {
+  Widget buildListTile({required String title, required IconData icon, required VoidCallback onTapAction}) {
     return ListTile(
       tileColor: const Color.fromRGBO(255, 192, 203, 1),
       leading: Icon(
@@ -19,6 +19,7 @@ class MainDrawer extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
+      onTap: onTapAction,
     );
   }
 
@@ -36,8 +37,8 @@ class MainDrawer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Center(
+              children: const [
+                Center(
                   child: Text(
                     'Cooking Up!',
                     style: TextStyle(
@@ -46,7 +47,7 @@ class MainDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 20,
                 ),
                 Center(
@@ -56,7 +57,6 @@ class MainDrawer extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
-                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ),
@@ -67,11 +67,9 @@ class MainDrawer extends StatelessWidget {
             height: 20,
           ),
           buildListTile(
-            'Meals',
-            Icons.restaurant,
-                () {
-              Navigator.of(context).pushNamed('/');
-            },
+            title: 'Meals',
+            icon: Icons.restaurant,
+            onTapAction: () => Navigator.of(context).pushNamed('/'),
           ),
           const ColoredBox(
             color: Colors.black54,
@@ -80,11 +78,9 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           buildListTile(
-            'Filters',
-            Icons.settings,
-                () {
-              Navigator.of(context).pushNamed(FiltersScreen.routeName);
-            },
+            title: 'Filters',
+            icon: Icons.settings,
+               onTapAction: () => Navigator.of(context).pushNamed(FiltersScreen.routeName),
           ),
         ],
       ),
