@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../DUMMY_DATA.dart';
 
-
 class MealDetailsScreen extends StatelessWidget {
+  final Function(String) toggleFavourites;
+  final bool Function(String) isMealFavourite;
   static const routeName = '/meal_details_screen';
   Widget buildSectionTitle(BuildContext context, String title) {
     return SizedBox(
@@ -27,7 +28,7 @@ class MealDetailsScreen extends StatelessWidget {
     );
   }
 
-  const MealDetailsScreen({Key? key}) : super(key: key);
+  const MealDetailsScreen({Key? key, required this.toggleFavourites, required this.isMealFavourite}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +37,11 @@ class MealDetailsScreen extends StatelessWidget {
     //final selectIngredients = DUMMY_MEALS.firstWhere((meal) => meal.ingredients == mealId);
     return Scaffold(
       appBar: AppBar(title: Text(selectMeal.title)),
+      //drawer: const MainDrawer(),
       body: Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
         child: SingleChildScrollView(
-          child:
-          Column(
+          child: Column(
             //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
@@ -81,7 +82,8 @@ class MealDetailsScreen extends StatelessWidget {
                   radius: const Radius.circular(6),
                   thickness: 8,
                   child: ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) => const Divider(
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const Divider(
                       color: Colors.black54,
                       thickness: 1.3,
                     ),
@@ -101,6 +103,9 @@ class MealDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => toggleFavourites(mealId),
+        child: Icon(isMealFavourite(mealId) ? Icons.favorite_sharp : Icons.favorite_outline),),
     );
   }
 }

@@ -69,7 +69,7 @@ class MainDrawer extends StatelessWidget {
           buildListTile(
             title: 'Meals',
             icon: Icons.restaurant,
-            onTapAction: () => Navigator.of(context).pushNamed('/'),
+            onTapAction: () => Navigator.of(context).pushReplacementNamed('/'),
           ),
           const ColoredBox(
             color: Colors.black54,
@@ -80,7 +80,7 @@ class MainDrawer extends StatelessWidget {
           buildListTile(
             title: 'Filters',
             icon: Icons.settings,
-               onTapAction: () => Navigator.of(context).pushNamed(FiltersScreen.routeName),
+               onTapAction: () => Navigator.of(context).pushReplacementNamed(FiltersScreen.routeName),
           ),
         ],
       ),

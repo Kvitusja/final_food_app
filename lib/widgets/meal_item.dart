@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../models/meal_model.dart';
 import '../screens/meal_details_screen.dart';
 
-
 class MealItem extends StatelessWidget {
   final String id;
   final String title;
@@ -12,24 +11,18 @@ class MealItem extends StatelessWidget {
   final Complexity complexity;
   final Affordability affordability;
 
-  const MealItem(
-      {Key? key,
-        required this.title,
-        required this.imageUrl,
-        required this.duration,
-        required this.complexity,
-        required this.affordability, required this.id})
-      : super(key: key);
-
-
-  void selectMeal(BuildContext context) {
-    Navigator.pushNamed(
-        context,
-        MealDetailsScreen.routeName);
-  }
+  const MealItem({
+    Key? key,
+    required this.title,
+    required this.imageUrl,
+    required this.duration,
+    required this.complexity,
+    required this.affordability,
+    required this.id,
+  }) : super(key: key);
 
   String get complexityText {
-    switch(complexity) {
+    switch (complexity) {
       case Complexity.Simple:
         return 'Simple';
       case Complexity.Challenging:
@@ -42,7 +35,7 @@ class MealItem extends StatelessWidget {
   }
 
   String get affordabilityText {
-    switch(affordability) {
+    switch (affordability) {
       case Affordability.Affordable:
         return 'Affordable';
       case Affordability.Pricey:
@@ -54,12 +47,17 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  void mealItems (BuildContext context) {
+  void mealItems(BuildContext context) {
     Navigator.pushNamed(
       context,
-      MealDetailsScreen.routeName, arguments: id,);
+      MealDetailsScreen.routeName,
+      arguments: id,
+    ).then((result) {
+      if (result != null) {
+        // removeItem(result);
+      }
+    } );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +90,10 @@ class MealItem extends StatelessWidget {
                   right: 8,
                   child: Container(
                     padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.black54,),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.black54,
+                    ),
                     width: 220,
                     child: Text(
                       title,
